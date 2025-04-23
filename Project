@@ -1,0 +1,37 @@
+//chp 32 generics type safe/reusable code
+//enable creation of classes interfaces, functions. that operate with various types while maintaining type security
+//Type parameters are specified within< > allowing reuse across different data types
+// OUT covariance use as return type simplify code enhance flexibility
+//IN contravariance used as argument type . provides more generic,reusable components
+//* when specific type argument is unknown or irrelevant
+//for inline functions REIFIED key word makes type information available at runtime
+
+class Repository <T> {
+    private val items = mutableListOf<T>()
+
+    fun add(item: T) {
+        items.add(item)
+    }
+    fun delete(item: T) {
+        items.remove(item)
+    }
+    fun getAll(): List<T> = items.toList()
+}
+data class SomeProduct(val id: Int, val name: String,val price: Double)
+
+
+fun main (){
+val product1 = SomeProduct(
+    1,"LP",200.0
+)
+    val product2 = SomeProduct(
+        2,"LP2",200.0
+    )
+
+ val productRepo = Repository<SomeProduct>()
+    productRepo.add(product1)
+    productRepo.add(product2)
+    productRepo.getAll().forEach {
+        println(it)
+    }
+}
